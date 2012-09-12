@@ -1,0 +1,79 @@
+<!doctype html>
+
+<html>
+  <head>
+    <title>Flip</title>
+    <style type="text/css">
+      * {
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+      }
+
+      #book {
+        background-color: #ff0000;
+        height: 400px;
+        padding: 20px;
+        position: relative;
+        width: 800px;
+        -webkit-perspective: 800px;
+        -moz-perspective: 800px;
+      }
+
+      .page {
+        height: 360px;
+        position: absolute;
+        text-align: center;
+        width: 380px;
+        -webkit-transform-style: preserve-3d;
+        -webkit-transform-origin: right center;
+        -webkit-transition: -webkit-transform 1s;
+        -moz-transform-style: preserve-3d;
+        -moz-transform-origin: right center;
+        -moz-transition: -moz-transform 1s;
+      }
+
+      .page p {
+        background-color: #fff;
+        border: 1px solid #000;
+        height: 100%;
+        margin: 0;
+        position: absolute;
+        width: 100%;
+        -webkit-backface-visibility: hidden;
+        -moz-backface-visibility: hidden;
+      }
+
+      p.back {
+        -webkit-transform: rotateY( 180deg );
+        -moz-transform: rotateY( 180deg );
+      }
+
+      .page.flipped {
+        -webkit-transform: rotateY( 180deg );
+        -moz-transform: rotateY( 180deg );
+      }
+    </style>
+
+  </head>
+
+  <body>
+    <div id="book">
+      <div class="page">
+        <p class="front">Front content</p>
+        <p class="back">Back content</p>
+      </div>
+    </div>
+    <button id="turn">Turn</button>
+
+    <script type="text/javascript">
+      var turn = document.querySelector('#turn');
+      turn.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        var page = document.querySelector('.page');
+        page.classList.toggle('flipped');
+      }, false);
+    </script>
+  </body>
+</html>
