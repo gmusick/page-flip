@@ -22,14 +22,16 @@
 
       .page {
         height: 360px;
+        left: 400px;
         position: absolute;
         text-align: center;
         width: 380px;
         -webkit-transform-style: preserve-3d;
-        -webkit-transform-origin: right center;
+        -webkit-transform-origin: left center;
         -webkit-transition: -webkit-transform 1s;
+
         -moz-transform-style: preserve-3d;
-        -moz-transform-origin: right center;
+        -moz-transform-origin: left center;
         -moz-transition: -moz-transform 1s;
       }
 
@@ -37,6 +39,7 @@
         background-color: #fff;
         border: 1px solid #000;
         height: 100%;
+        line-height: 320px;
         margin: 0;
         position: absolute;
         width: 100%;
@@ -45,13 +48,13 @@
       }
 
       p.back {
-        -webkit-transform: rotateY( 180deg );
-        -moz-transform: rotateY( 180deg );
+        -webkit-transform: rotateY( -180deg );
+        -moz-transform: rotateY( -180deg );
       }
 
       .page.flipped {
-        -webkit-transform: rotateY( 180deg );
-        -moz-transform: rotateY( 180deg );
+        -webkit-transform: rotateY( -180deg );
+        -moz-transform: rotateY( -180deg );
       }
     </style>
 
@@ -60,19 +63,54 @@
   <body>
     <div id="book">
       <div class="page">
-        <p class="front">Front content</p>
-        <p class="back">Back content</p>
+        <p class="front">Page 1</p>
+        <p class="back">Page 2</p>
+      </div>
+      <div class="page">
+        <p class="front">Page 3</p>
+        <p class="back">Page 4</p>
+      </div>
+      <div class="page">
+        <p class="front">Page 5</p>
+        <p class="back">Page 6</p>
+      </div>
+      <div class="page">
+        <p class="front">Page 7</p>
+        <p class="back">Page 8</p>
       </div>
     </div>
-    <button id="turn">Turn</button>
+
+    <button id="previous">Previous page</button>
+    <button id="next">Next page</button>
 
     <script type="text/javascript">
-      var turn = document.querySelector('#turn');
-      turn.addEventListener('click', function(e) {
+      var pages = document.querySelectorAll('.page');
+      for (var i = pages.length - 1; i >= 0; i--) {
+        pages[i].style.zIndex = 1000 - i;
+      }
+
+      var currentPage = 1;
+
+      var next = document.querySelector('#next');
+      next.addEventListener('click', function(e) {
         e.preventDefault();
 
-        var page = document.querySelector('.page');
-        page.classList.toggle('flipped');
+        var page = document.querySelectorAll('.page');
+        page[currentPage - 1].classList.add('flipped');
+        page[currentPage - 1].style.zIndex = 1000 + currentPage;
+
+        currentPage = currentPage + 1;
+      }, false);
+
+      var previous = document.querySelector('#previous');
+      previous.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        currentPage = currentPage - 1;
+
+        var page = document.querySelectorAll('.page');
+        page[currentPage - 1].style.zIndex = 1000 - currentPage + 1;
+        page[currentPage - 1].classList.remove('flipped');
       }, false);
     </script>
   </body>
