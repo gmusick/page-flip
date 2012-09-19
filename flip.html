@@ -87,8 +87,11 @@
     <script type="text/javascript">
       var pages = document.querySelectorAll('.page');
       var currentPage = 1;
+      var basePageWidth = 376;
+      var maxPageWidth = pages.length + basePageWidth;
       for (var i = pages.length - 1; i >= 0; i--) {
         pages[i].style.zIndex = 1000 - i;
+        pages[i].style.width = (basePageWidth +  2*i) + "px";
       }
       $('.page').bind('webkitTransitionEnd', function() {
         if(!$(this).hasClass('flipped')) {
@@ -96,26 +99,21 @@
         }
       });   
 
-      var next = document.querySelector('#next');
-      next.addEventListener('click', function(e) {
-        e.preventDefault();
-
-        var page = document.querySelectorAll('.page');
-        page[currentPage - 1].classList.add('flipped');
-        page[currentPage - 1].style.zIndex = 1000 + currentPage;
+      $("#next").click(function() {
+        var page = $(pages[currentPage - 1]);
+        page.addClass('flipped');
+        page.css("zIndex", 1000 + currentPage);
+        page.width(maxPageWidth - 2 * currentPage);
 
         currentPage = currentPage + 1;
-      }, false);
-
-      var previous = document.querySelector('#previous');
-      previous.addEventListener('click', function(e) {
-        e.preventDefault();
-
+      });
+      
+      $("#previous").click(function() {
         currentPage = currentPage - 1;
-
-        var page = document.querySelectorAll('.page');
-        page[currentPage - 1].classList.remove('flipped');
-      }, false);
+        var page = $(pages[currentPage - 1]);
+        page.removeClass('flipped');
+        page.width(basePageWidth + 2 * currentPage);
+      });
     </script>
   </body>
 </html>
