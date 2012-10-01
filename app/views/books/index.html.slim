@@ -14,3 +14,8 @@ div#book
 
 button#previous Previous page
 button#next Next page
+
+= content_for :inline_javascript do
+  coffee:
+    b = new Book($ '#book')
+    b.draw()
