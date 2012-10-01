@@ -1,0 +1,48 @@
+*
+  box-sizing: border-box
+  -webkit-box-sizing: border-box
+  -moz-box-sizing: border-box
+
+#book
+  background-color: #ff0000
+  height: 400px
+  padding: 20px
+  position: relative
+  width: 800px
+  -webkit-perspective: 800px
+  -moz-perspective: 800px
+
+
+.page
+  height: 360px
+  left: 400px
+  position: absolute
+  text-align: center
+  width: 380px
+  -webkit-transform-style: preserve-3d
+  -webkit-transform-origin: left center
+  -webkit-transition: -webkit-transform 1s
+
+  -moz-transform-style: preserve-3d
+  -moz-transform-origin: left center
+  -moz-transition: -moz-transform 1s
+
+  &.flipped
+    -webkit-transform: rotateY( -180deg )
+    -moz-transform: rotateY( -180deg )
+
+  p
+    background-color: #fff
+    border: 1px solid #000
+    height: 100%
+    line-height: 320px
+    margin: 0
+    position: absolute
+    width: 100%
+    -webkit-backface-visibility: hidden
+    -moz-backface-visibility: hidden
+
+
+    &.back
+      -webkit-transform: rotateY( -180deg )
+      -moz-transform: rotateY( -180deg )
